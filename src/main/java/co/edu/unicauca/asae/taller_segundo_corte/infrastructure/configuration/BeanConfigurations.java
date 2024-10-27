@@ -8,10 +8,10 @@ import co.edu.unicauca.asae.taller_segundo_corte.domain.useCases.GestionarDocent
 @Configuration
 public class BeanConfigurations {
     
-    @Bean
-    public GestionarDocenteCUAdapter crearGestionarDocenteCUAdapter(){
-        //TO DO: 
-        // Implementar correctamente el metodo
-        return new GestionarDocenteCUAdapter();
-    }
+    // @Bean
+    // public GestionarDocenteCUAdapter crearGestionarDocenteCUAdapter(){
+    //     //TO DO: 
+    //     // Implementar correctamente el metodo
+    //     return new GestionarDocenteCUAdapter();
+    // }
 }
