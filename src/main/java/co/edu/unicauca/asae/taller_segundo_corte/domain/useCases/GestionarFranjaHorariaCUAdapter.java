@@ -20,10 +20,11 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaIn
 
         for(Docente objDocente: prmFranjaHoraria.getObjCurso().getLstDocentes()){
             if(this.objFranjaHorariaGateway.existeFHPorEspacioFisico(
-                prmFranjaHoraria.getDia(), 
-                prmFranjaHoraria.getHoraInicio(), 
-                prmFranjaHoraria.getHoraFin(), 
-                objDocente.getId())
+                    prmFranjaHoraria.getDia(), 
+                    prmFranjaHoraria.getHoraInicio(), 
+                    prmFranjaHoraria.getHoraFin(), 
+                    objDocente.getId()
+                )
             ){
                 return null;
             }  
