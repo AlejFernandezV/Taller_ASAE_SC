@@ -1,4 +1,4 @@
-package co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.controllers.exceptionControllers.exceptions;
+package co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions;
 
 public class ReglaDeNegocioException extends GestionClientesRuntimeException{
     private static final String FORMATO_EXCEPCION = "%s - Violación a regla de negocio: %s";

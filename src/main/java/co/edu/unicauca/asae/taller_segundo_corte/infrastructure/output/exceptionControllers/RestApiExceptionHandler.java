@@ -1,4 +1,4 @@
-package co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.controllers.exceptionControllers;
+package co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.controllers.exceptionControllers.exceptions.CodigoError;
-import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.controllers.exceptionControllers.exceptions.EntidadNoExisteException;
-import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.controllers.exceptionControllers.exceptions.EntidadYaExisteException;
-import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.controllers.exceptionControllers.exceptions.Error;
-import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.controllers.exceptionControllers.exceptions.ErrorUtils;
-import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.controllers.exceptionControllers.exceptions.ReglaDeNegocioException;
+import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.CodigoError;
+import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.EntidadNoExisteException;
+import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.EntidadYaExisteException;
+import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.Error;
+import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.ErrorUtils;
+import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.ReglaDeNegocioException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @ControllerAdvice

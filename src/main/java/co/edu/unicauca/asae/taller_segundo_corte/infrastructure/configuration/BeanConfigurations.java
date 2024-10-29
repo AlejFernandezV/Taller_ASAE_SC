@@ -3,15 +3,29 @@ package co.edu.unicauca.asae.taller_segundo_corte.infrastructure.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import co.edu.unicauca.asae.taller_segundo_corte.application.output.FormateadorResultadosIntPort;
+import co.edu.unicauca.asae.taller_segundo_corte.application.output.GestionarDocenteGatewayIntPort;
+import co.edu.unicauca.asae.taller_segundo_corte.application.output.GestionarEspacioFisicoGatewayIntPort;
+import co.edu.unicauca.asae.taller_segundo_corte.application.output.GestionarFranjaHorariaGatewayIntPort;
 import co.edu.unicauca.asae.taller_segundo_corte.domain.useCases.GestionarDocenteCUAdapter;
+import co.edu.unicauca.asae.taller_segundo_corte.domain.useCases.GestionarEspacioFisicoCUAdapter;
+import co.edu.unicauca.asae.taller_segundo_corte.domain.useCases.GestionarFranjaHorariaCUAdapter;
 
 @Configuration
 public class BeanConfigurations {
     
-    // @Bean
-    // public GestionarDocenteCUAdapter crearGestionarDocenteCUAdapter(){
-    //     //TO DO: 
-    //     // Implementar correctamente el metodo
-    //     return new GestionarDocenteCUAdapter();
-    // }
+    @Bean
+    public GestionarDocenteCUAdapter crearGestionarDocenteCUAdapter(GestionarDocenteGatewayIntPort objGestionarDocenteGateway, FormateadorResultadosIntPort objFormateadorResultados){
+        return new GestionarDocenteCUAdapter(objGestionarDocenteGateway,objFormateadorResultados);
+    }
+
+    @Bean
+    public GestionarEspacioFisicoCUAdapter crearGestionarEspacioFisicoCUAdapter(GestionarEspacioFisicoGatewayIntPort objGestionarEspacioFisicoGateway){
+        return new GestionarEspacioFisicoCUAdapter(objGestionarEspacioFisicoGateway);
+    }
+
+    @Bean
+    public GestionarFranjaHorariaCUAdapter crearGestionarFranjaHorariaCUAdapter(GestionarFranjaHorariaGatewayIntPort objFranjaHorariaGateway, FormateadorResultadosIntPort objFormateadorResultados){
+        return new GestionarFranjaHorariaCUAdapter(objFranjaHorariaGateway,objFormateadorResultados);
+    }
 }
