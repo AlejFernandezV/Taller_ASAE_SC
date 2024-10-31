@@ -1,8 +1,10 @@
 package co.edu.unicauca.asae.taller_segundo_corte.domain.useCases;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
-import co.edu.unicauca.asae.taller_segundo_corte.application.input.GestionarFranjaHorariaIntPort;
+import co.edu.unicauca.asae.taller_segundo_corte.application.input.GestionarFranjaHorariaCUIntPort;
 import co.edu.unicauca.asae.taller_segundo_corte.application.output.FormateadorResultadosIntPort;
 import co.edu.unicauca.asae.taller_segundo_corte.application.output.GestionarFranjaHorariaGatewayIntPort;
 import co.edu.unicauca.asae.taller_segundo_corte.domain.models.Docente;
@@ -10,7 +12,7 @@ import co.edu.unicauca.asae.taller_segundo_corte.domain.models.FranjaHoraria;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaIntPort{
+public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCUIntPort{
 
     @Autowired
     private final GestionarFranjaHorariaGatewayIntPort objFranjaHorariaGateway;
@@ -47,12 +49,12 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaIn
     }
 
     @Override
-    public Iterable<FranjaHoraria> listar() {
+    public List<FranjaHoraria> listar() {
         return this.objFranjaHorariaGateway.listar();
     }
 
     @Override
-    public Iterable<FranjaHoraria> listarPorDocente(int prmIdDocente) {
+    public List<FranjaHoraria> listarPorDocente(int prmIdDocente) {
        return this.objFranjaHorariaGateway.listarPorDocente(prmIdDocente);
     }
     

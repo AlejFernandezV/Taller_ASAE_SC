@@ -12,7 +12,6 @@ import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTORespons
 public interface DocenteDTOToModelMapper {
     Docente mappingDocenteDTORequestToDocenteModel(DocenteDTORequest docenteRequest);
 
-    //Posibles errores
     // @Mapping(target="code",source="code")
     // @Mapping(target="isCreated",source="isCreated")
     // @Mapping(target="createdAt",source="createdAt")

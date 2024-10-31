@@ -28,4 +28,5 @@ public class BeanConfigurations {
     public GestionarFranjaHorariaCUAdapter crearGestionarFranjaHorariaCUAdapter(GestionarFranjaHorariaGatewayIntPort objFranjaHorariaGateway, FormateadorResultadosIntPort objFormateadorResultados){
         return new GestionarFranjaHorariaCUAdapter(objFranjaHorariaGateway,objFormateadorResultados);
     }
+
 }
