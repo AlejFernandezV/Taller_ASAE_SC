@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DocenteCreadoDTOResponse {
     private int code;
-    private boolean isCreated;
+    private int id;
+    private String nombre;
+    private String apellido;
+    private String correo;
     private Date createdAt;
 }

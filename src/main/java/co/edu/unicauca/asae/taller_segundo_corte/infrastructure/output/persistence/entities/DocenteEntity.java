@@ -22,7 +22,7 @@ import lombok.Setter;
 public class DocenteEntity extends PersonaEntity {
     //Relaciones
     @OneToOne(
-        cascade = {CascadeType.PERSIST}
+        cascade = {CascadeType.ALL}
     )
     @JoinColumn(
         name="oficina_id", 

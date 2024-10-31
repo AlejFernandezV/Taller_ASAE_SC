@@ -21,7 +21,7 @@ public interface FranjaHorariaDTOToModelMapper {
 
     List<FranjaHorariaDTOResponse> mappingListFranjaHorariaModelToListFranjaHorariaDTOResponse(List<FranjaHoraria> lst);
 
-    FranjaHorariaCreadaDTOResponse mappingFranjaHorariaDTOResponse(int code, boolean isCreated, Date createdAt);
+    FranjaHorariaCreadaDTOResponse mappingFranjaHorariaDTOResponse(int code, FranjaHoraria fh, Date createdAt);
 
     ListarFranjasHorariasDTOResponse mappingFranjasHorariasDTOResponse(int code, List<FranjaHorariaDTOResponse> results);
 }

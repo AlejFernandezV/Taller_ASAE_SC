@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.unicauca.asae.taller_segundo_corte.application.input.GestionarFranjaHorariaCUIntPort;
@@ -31,35 +30,26 @@ import lombok.RequiredArgsConstructor;
 public class FranjaHorariaRestController {
     
     @Autowired
-    private final GestionarFranjaHorariaCUIntPort objGestionarFranjaHorariaCUIntPort;
+    private GestionarFranjaHorariaCUIntPort objGestionarFranjaHorariaCUIntPort;
     @Autowired
-    private final FranjaHorariaDTOToModelMapper objMapper;
+    private FranjaHorariaDTOToModelMapper objMapper;
 
     @PostMapping("/franjas_horarias")
     public FranjaHorariaCreadaDTOResponse epPostFranjaHoraria(@RequestBody FranjaHorariaDTORequest franjaHorariaData) {
         FranjaHoraria objFranjaHorariaCrear = this.objMapper.mappingFranjaHorariaDTOReqToFranjaHorariaModel(franjaHorariaData);
         FranjaHoraria objFranjaHorariaCreado = this.objGestionarFranjaHorariaCUIntPort.crear(objFranjaHorariaCrear);
-        if(objFranjaHorariaCreado==null){
-            return this.objMapper.mappingFranjaHorariaDTOResponse(HttpStatus.BAD_REQUEST.value(), false, null);
-        }
-        return this.objMapper.mappingFranjaHorariaDTOResponse(HttpStatus.CREATED.value(), true, new Date());
+        return this.objMapper.mappingFranjaHorariaDTOResponse(HttpStatus.CREATED.value(), objFranjaHorariaCreado, new Date());
     }
     
     @GetMapping("/franjas_horarias")
-    public ListarFranjasHorariasDTOResponse epGetAllFranjasHorarias(@RequestParam FranjaHorariaDTORequest franjaHorariaData) {
+    public ListarFranjasHorariasDTOResponse epGetAllFranjasHorarias() {
         List<FranjaHoraria> lstFranjasHorariasObtenidas = this.objGestionarFranjaHorariaCUIntPort.listar();
-        if(lstFranjasHorariasObtenidas.isEmpty()){
-            return this.objMapper.mappingFranjasHorariasDTOResponse(HttpStatus.BAD_REQUEST.value(), null);
-        }
         return this.objMapper.mappingFranjasHorariasDTOResponse(HttpStatus.OK.value(), this.objMapper.mappingListFranjaHorariaModelToListFranjaHorariaDTOResponse(lstFranjasHorariasObtenidas));
     }
     
     @GetMapping("/franjas_horarias/{idDocente}")
     public ListarFranjasHorariasDTOResponse epGetAllFranjasHorariasPorDocente(@PathVariable @Min(1) int idDocente) {
         List<FranjaHoraria> lstFranjasHorariasObtenidas = this.objGestionarFranjaHorariaCUIntPort.listarPorDocente(idDocente);
-        if(lstFranjasHorariasObtenidas.isEmpty()){
-            return this.objMapper.mappingFranjasHorariasDTOResponse(HttpStatus.BAD_REQUEST.value(), null);
-        }
         return this.objMapper.mappingFranjasHorariasDTOResponse(HttpStatus.OK.value(), this.objMapper.mappingListFranjaHorariaModelToListFranjaHorariaDTOResponse(lstFranjasHorariasObtenidas));
     }
 }

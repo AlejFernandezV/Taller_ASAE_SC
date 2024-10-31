@@ -3,7 +3,6 @@ package co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.persiste
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,7 +31,6 @@ public class EspacioFisicoEntity {
 
     // Relaciones
     @OneToMany(
-        cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, 
         fetch =  FetchType.LAZY, 
         mappedBy = "objEspacioFisico"
     )

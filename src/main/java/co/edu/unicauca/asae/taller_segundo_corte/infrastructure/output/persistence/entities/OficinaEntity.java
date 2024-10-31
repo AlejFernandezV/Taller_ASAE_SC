@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,14 +19,11 @@ public class OficinaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="oficina_id")
-    private int id;
+    private int idOficina;
 
     @Column(unique = true, length = 20)
-    private String nombre;
+    private String nombreOficina;
     
     @Column(length = 20)
-    private String ubicacion;
-
-    @OneToOne(mappedBy = "objOficina")
-    private DocenteEntity objDocente;
+    private String ubicacionOficina;
 }

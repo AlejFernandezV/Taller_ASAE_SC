@@ -10,10 +10,10 @@ import org.springframework.data.repository.query.Param;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.persistence.entities.FranjaHorariaEntity;
 
 public interface FranjaHorariaRepository extends JpaRepository<FranjaHorariaEntity, Integer> {
-        @Query("SELECT CASE WHEN COUNT(f) > 0 THEN true ELSE false END FROM FranjaHorariaEntity f " +
+        @Query("SELECT CASE WHEN COUNT(f) > 0 THEN false ELSE true END FROM FranjaHorariaEntity f " +
                 "JOIN f.objEspacioFisico e " +
                 "WHERE e.id = :espacioFisicoId AND f.dia = :dia " +
-                "AND ((f.horaInicio <= :horaFin AND f.horaFin >= :horaInicio))")
+                "AND ((f.horaInicio < :horaFin AND f.horaFin > :horaInicio))")
         boolean isEspacioFisicoOcupado(@Param("dia") String dia,
                                         @Param("horaInicio") LocalTime horaInicio,
                                         @Param("horaFin") LocalTime horaFin,

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import co.edu.unicauca.asae.taller_segundo_corte.application.input.GestionarFranjaHorariaCUIntPort;
-import co.edu.unicauca.asae.taller_segundo_corte.application.output.FormateadorResultadosIntPort;
+import co.edu.unicauca.asae.taller_segundo_corte.application.output.FormateadorResultadosFranjaHorariaIntPort;
 import co.edu.unicauca.asae.taller_segundo_corte.application.output.GestionarFranjaHorariaGatewayIntPort;
 import co.edu.unicauca.asae.taller_segundo_corte.domain.models.Docente;
 import co.edu.unicauca.asae.taller_segundo_corte.domain.models.FranjaHoraria;
@@ -15,10 +15,10 @@ import lombok.AllArgsConstructor;
 public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCUIntPort{
 
     @Autowired
-    private final GestionarFranjaHorariaGatewayIntPort objFranjaHorariaGateway;
+    private GestionarFranjaHorariaGatewayIntPort objFranjaHorariaGateway;
 
     @Autowired
-    private final FormateadorResultadosIntPort objFormateadorResultados;
+    private FormateadorResultadosFranjaHorariaIntPort objFormateadorResultados;
 
     @Override
     public FranjaHoraria crear(FranjaHoraria prmFranjaHoraria) {
@@ -29,9 +29,8 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
                 prmFranjaHoraria.getHoraFin(), 
                 prmFranjaHoraria.getObjEspacioFisico().getId())
         ){
-            throw this.objFormateadorResultados.preparaRespuestaFallida("Error! El espacio físico no está disponible en esta franja horaria");
+            return this.objFormateadorResultados.preparaRespuestaFallidaCrearFranjaHoraria("El espacio físico no está disponible en esta franja horaria");
         }        
-
 
         for(Docente objDocente: prmFranjaHoraria.getObjCurso().getLstDocentes()){
             if(this.objFranjaHorariaGateway.isDocenteDisponibleParaFH(
@@ -41,7 +40,7 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
                     objDocente.getId()
                 )
             ){
-                throw this.objFormateadorResultados.preparaRespuestaFallida("Error! El docente con id "+objDocente.getId()+" no está disponible para esta franja horaria");
+                return this.objFormateadorResultados.preparaRespuestaFallidaCrearFranjaHoraria("El docente con id "+objDocente.getId()+" no está disponible para esta franja horaria");
             }  
         }
         
@@ -50,12 +49,14 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
 
     @Override
     public List<FranjaHoraria> listar() {
-        return this.objFranjaHorariaGateway.listar();
+        List<FranjaHoraria> results = this.objFranjaHorariaGateway.listar(); 
+        return results.isEmpty() ? this.objFormateadorResultados.preparaRespuestaFallidaListarFranjasHorarias("No hay franjas horarias por listar") : results;
     }
 
     @Override
     public List<FranjaHoraria> listarPorDocente(int prmIdDocente) {
-       return this.objFranjaHorariaGateway.listarPorDocente(prmIdDocente);
+        List<FranjaHoraria> results = this.objFranjaHorariaGateway.listarPorDocente(prmIdDocente); 
+        return results.isEmpty() ? this.objFormateadorResultados.preparaRespuestaFallidaListarFranjasHorarias("No hay franjas horarias por listar") : results;
     }
     
 }

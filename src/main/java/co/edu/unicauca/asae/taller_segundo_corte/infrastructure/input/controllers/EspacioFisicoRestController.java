@@ -22,19 +22,13 @@ import lombok.RequiredArgsConstructor;
 public class EspacioFisicoRestController {
     
     @Autowired
-    private final GestionarEspacioFisicoCUIntPort objGestionarEspacioFisicoCUIntPort;
+    private GestionarEspacioFisicoCUIntPort objGestionarEspacioFisicoCUIntPort;
     @Autowired
-    private final EspacioFisicoDTOToModelMapper objMapper;
+    private EspacioFisicoDTOToModelMapper objMapper;
 
-    
     @GetMapping("/espacios_fisicos")
     public ListarEspaciosFisicosDTOResponse edGetAllEspaciosFisicos() {
         List<EspacioFisico> listEspacioFisicoEncontrada = this.objGestionarEspacioFisicoCUIntPort.listar();
-
-        if(listEspacioFisicoEncontrada.isEmpty()){
-            return this.objMapper.mappingEspaciosFisicosResponse(HttpStatus.BAD_REQUEST.value(), null); 
-        }
-
         List<EspacioFisicoDTOResponse> listEspacioFisicoRespuesta = this.objMapper.mappingListEspacioFisicoModelToEspacioFisicoDTOResponse(listEspacioFisicoEncontrada);
         return this.objMapper.mappingEspaciosFisicosResponse(HttpStatus.OK.value(), listEspacioFisicoRespuesta);
     }

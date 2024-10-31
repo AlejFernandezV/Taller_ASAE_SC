@@ -2,6 +2,7 @@ package co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.controlle
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,17 +22,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DocenteRestController {
     
+    @Autowired
     private GestionarDocenteCUIntPort objGestionardocentesCUInt;
+
+    @Autowired
     private DocenteDTOToModelMapper objMapper;
 
     @PostMapping("/docentes")
     public DocenteCreadoDTOResponse epPostDocente(@RequestBody DocenteDTORequest docenteData) {
         Docente objDocenteCrear = this.objMapper.mappingDocenteDTORequestToDocenteModel(docenteData);
         Docente objDocenteCreado = this.objGestionardocentesCUInt.crear(objDocenteCrear);
-        if(objDocenteCreado == null){
-            return this.objMapper.mappingDocenteDTOResponse(HttpStatus.BAD_REQUEST.value(), false, null); 
-        }
-        return this.objMapper.mappingDocenteDTOResponse(HttpStatus.CREATED.value(), true, new Date());
+        return this.objMapper.mappingDocenteDTOResponse(HttpStatus.CREATED.value(), objDocenteCreado, new Date());
     }
     
 }

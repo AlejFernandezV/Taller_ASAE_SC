@@ -10,10 +10,8 @@ import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTORespons
 
 @Mapper(componentModel="spring")
 public interface DocenteDTOToModelMapper {
+    
     Docente mappingDocenteDTORequestToDocenteModel(DocenteDTORequest docenteRequest);
 
-    // @Mapping(target="code",source="code")
-    // @Mapping(target="isCreated",source="isCreated")
-    // @Mapping(target="createdAt",source="createdAt")
-    DocenteCreadoDTOResponse mappingDocenteDTOResponse(int code, boolean isCreated, Date createdAt);
+    DocenteCreadoDTOResponse mappingDocenteDTOResponse(int code,Docente docente, Date createdAt);
 }

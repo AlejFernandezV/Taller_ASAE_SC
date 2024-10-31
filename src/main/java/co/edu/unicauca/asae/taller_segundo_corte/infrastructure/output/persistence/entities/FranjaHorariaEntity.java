@@ -34,7 +34,6 @@ public class FranjaHorariaEntity {
     
     //Relaciones
     @ManyToOne(
-        cascade = {CascadeType.PERSIST},
         fetch= FetchType.EAGER
     )
     @JoinColumn(
