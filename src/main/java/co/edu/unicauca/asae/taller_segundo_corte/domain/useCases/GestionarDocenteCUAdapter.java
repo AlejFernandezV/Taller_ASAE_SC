@@ -1,5 +1,7 @@
 package co.edu.unicauca.asae.taller_segundo_corte.domain.useCases;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import co.edu.unicauca.asae.taller_segundo_corte.application.input.GestionarDocenteCUIntPort;
@@ -26,4 +28,31 @@ public class GestionarDocenteCUAdapter implements GestionarDocenteCUIntPort{
         }
         return this.objGestionarDocenteGateway.guardar(prmDocente);
     }    
+
+    @Override
+    public Docente eliminar(int id) {
+        Docente objDocente = this.objGestionarDocenteGateway.buscarPorId(id);
+        if(objDocente == null) {
+            return this.objFormateadorResultados.preparaRespuestaFallidaEliminarDocente("El docente no existe");
+        }
+        return this.objGestionarDocenteGateway.eliminar(objDocente);
+    }
+
+    @Override
+    public Docente buscarPorId(int id) {
+        Docente objDocente = this.objGestionarDocenteGateway.buscarPorId(id);
+        if(objDocente == null) {
+            return this.objFormateadorResultados.preparaRespuestaFallidaBuscarDocente("El docente no existe");
+        }
+        return objDocente;
+    }
+
+    @Override
+    public List<Docente> listar() {
+        List<Docente> lstDocentes = this.objGestionarDocenteGateway.listar();
+        if(lstDocentes.isEmpty()) {
+            return this.objFormateadorResultados.preparaRespuestaFallidaListarDocentes("No hay docentes registrados");
+        }
+        return lstDocentes;
+    }
 }

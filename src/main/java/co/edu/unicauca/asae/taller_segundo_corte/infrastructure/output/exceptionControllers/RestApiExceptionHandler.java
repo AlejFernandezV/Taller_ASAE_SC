@@ -85,4 +85,36 @@ public class RestApiExceptionHandler {
     ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
         return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(EntidadNoExisteException.class)
+    public ResponseEntity<Error> handleEntidadNoExisteException(
+        final HttpServletRequest req,
+        final EntidadNoExisteException ex
+    ) {
+        final Error error = ErrorUtils.crearError(
+            CodigoError.ENTIDAD_NO_ENCONTRADA.getCodigo(),
+            ex.getMessage(),
+            HttpStatus.NOT_FOUND.value()
+        )
+        .setUrl(req.getRequestURL().toString())
+        .setMetodo(req.getMethod());
+        
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(EntidadYaExisteException.class)
+    public ResponseEntity<Error> handleEntidadYaExisteException(
+        final HttpServletRequest req,
+        final EntidadYaExisteException ex
+    ) {
+        final Error error = ErrorUtils.crearError(
+            CodigoError.ENTIDAD_YA_EXISTE.getCodigo(),
+            ex.getMessage(),
+            HttpStatus.CONFLICT.value()
+        )
+        .setUrl(req.getRequestURL().toString())
+        .setMetodo(req.getMethod());
+        
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
 }
