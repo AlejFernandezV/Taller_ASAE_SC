@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.unicauca.asae.taller_segundo_corte.application.input.GestionarFranjaHorariaCUIntPort;
 import co.edu.unicauca.asae.taller_segundo_corte.domain.models.FranjaHoraria;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTORequest.CreateDTORequest.FranjaHorariaDTORequest;
-import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.CreateDTOResponse.EspacioFisicoCreadoDTOResponse;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.CreateDTOResponse.FranjaHorariaCreadaDTOResponse;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.GetDTOResponse.FranjaHorariaDTOResponse;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.GetDTOResponse.ListarFranjasHorariasDTOResponse;
@@ -51,8 +50,9 @@ public class FranjaHorariaRestController {
     }
     
     @GetMapping("/franjas_horarias/{idDocente}")
-    public List<EspacioFisicoCreadoDTOResponse> epGetFranjasHorariasPorDocente(@PathVariable @Min(1) int idDocente) {
+    public ListarFranjasHorariasDTOResponse epGetFranjasHorariasPorDocente(@PathVariable @Min(1) int idDocente) {
         List<FranjaHoraria> lstFranjasHorariasObtenidas = this.objGestionarFranjaHorariaCUIntPort.listarPorDocente(idDocente);
-        return this.objMapper.mappingFranjasHorariasDTOResponse(HttpStatus.OK.value(), this.objMapper.mappingListFranjaHorariaModelToListFranjaHorariaDTOResponse(lstFranjasHorariasObtenidas));
+        return this.objMapper.mappingFranjasHorariasDTOResponse(HttpStatus.OK.value(), 
+            this.objMapper.mappingListFranjaHorariaModelToListFranjaHorariaDTOResponse(lstFranjasHorariasObtenidas));
     }
 }
