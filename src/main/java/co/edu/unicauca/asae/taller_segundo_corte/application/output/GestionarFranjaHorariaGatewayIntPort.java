@@ -9,7 +9,7 @@ public interface GestionarFranjaHorariaGatewayIntPort {
 
     public boolean isDocenteDisponibleParaFH(String dia, LocalTime horaInicio, LocalTime horaFin, int idDocente);
     public boolean isEspacioFisicoDisponibleParaFH(String dia, LocalTime horaInicio, LocalTime horaFin, int idEspacioFisico);
-
+    
     public FranjaHoraria guardar(FranjaHoraria prmFranjaHoraria);
     public List<FranjaHoraria> listar();
     public List<FranjaHoraria> listarPorDocente(int prmIdDocente);

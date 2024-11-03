@@ -19,6 +19,7 @@ import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTORespons
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.GetDTOResponse.FranjaHorariaDTOResponse;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.GetDTOResponse.ListarFranjasHorariasDTOResponse;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.mappers.FranjaHorariaDTOToModelMapper;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 
@@ -35,7 +36,7 @@ public class FranjaHorariaRestController {
     private FranjaHorariaDTOToModelMapper objMapper;
 
     @PostMapping("/franjas_horarias")
-    public FranjaHorariaCreadaDTOResponse epPostFranjaHoraria(@RequestBody FranjaHorariaDTORequest franjaHorariaData) {
+    public FranjaHorariaCreadaDTOResponse epPostFranjaHoraria(@Valid @RequestBody FranjaHorariaDTORequest franjaHorariaData) {
         FranjaHoraria objFranjaHorariaCrear = this.objMapper.mappingFranjaHorariaDTOReqToFranjaHorariaModel(franjaHorariaData);
         FranjaHoraria objFranjaHorariaCreado = this.objGestionarFranjaHorariaCUIntPort.crear(objFranjaHorariaCrear);
         return this.objMapper.mappingFranjaHorariaDTOResponse(HttpStatus.CREATED.value(), objFranjaHorariaCreado, new Date());

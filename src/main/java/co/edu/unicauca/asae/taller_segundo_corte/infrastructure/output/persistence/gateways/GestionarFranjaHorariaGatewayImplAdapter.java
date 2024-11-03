@@ -20,9 +20,11 @@ public class GestionarFranjaHorariaGatewayImplAdapter implements GestionarFranja
 
     @Autowired
     private FranjaHorariaRepository franjaHorariaRepository;
-    
+
     @Autowired
     private ModelMapper franjaHorariaMapper;
+
+  
 
     @Override
     public boolean isDocenteDisponibleParaFH(String dia, LocalTime horaInicio, LocalTime horaFin, int idDocente) {

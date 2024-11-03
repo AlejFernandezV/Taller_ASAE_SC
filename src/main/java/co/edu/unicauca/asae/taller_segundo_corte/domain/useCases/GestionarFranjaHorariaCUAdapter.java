@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import co.edu.unicauca.asae.taller_segundo_corte.application.input.GestionarFranjaHorariaCUIntPort;
 import co.edu.unicauca.asae.taller_segundo_corte.application.output.FormateadorResultadosFranjaHorariaIntPort;
+import co.edu.unicauca.asae.taller_segundo_corte.application.output.GestionarCursoGatewayIntPort;
 import co.edu.unicauca.asae.taller_segundo_corte.application.output.GestionarFranjaHorariaGatewayIntPort;
 import co.edu.unicauca.asae.taller_segundo_corte.domain.models.Docente;
 import co.edu.unicauca.asae.taller_segundo_corte.domain.models.FranjaHoraria;
@@ -22,13 +23,16 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
     private GestionarFranjaHorariaGatewayIntPort objFranjaHorariaGateway;
 
     @Autowired
+    private GestionarCursoGatewayIntPort objCursoGateway;
+
+    @Autowired
     private FormateadorResultadosFranjaHorariaIntPort objFormateadorResultados;
 
     @Override
     public FranjaHoraria crear(FranjaHoraria prmFranjaHoraria) {
         validarHoraFinMayorQueInicio(prmFranjaHoraria);
-        validarCursoTieneDocentes(prmFranjaHoraria);
         validarCursoExiste(prmFranjaHoraria);
+        validarCursoTieneDocentes(prmFranjaHoraria);
         if(!this.objFranjaHorariaGateway.isEspacioFisicoDisponibleParaFH(
                 prmFranjaHoraria.getDia(), 
                 prmFranjaHoraria.getHoraInicio(), 
@@ -75,14 +79,13 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
     }
 
     private void validarCursoTieneDocentes(FranjaHoraria franjaHoraria) {
-        if (franjaHoraria.getObjCurso().getLstDocentes() == null || 
-            franjaHoraria.getObjCurso().getLstDocentes().isEmpty()) {
+        if (!this.objCursoGateway.cursoTieneDocente(franjaHoraria.getObjCurso().getId())) {
             throw new CursoSinDocenteException("franja_horaria.curso.sin_docente");
         }
     }
 
     private void validarCursoExiste(FranjaHoraria franjaHoraria) {
-        if (franjaHoraria.getObjCurso() == null) {
+        if (!this.objCursoGateway.cursoExiste(franjaHoraria.getObjCurso().getId())) {
             throw new CursoNoExisteException("franja_horaria.curso.no_existe");
         }
     }

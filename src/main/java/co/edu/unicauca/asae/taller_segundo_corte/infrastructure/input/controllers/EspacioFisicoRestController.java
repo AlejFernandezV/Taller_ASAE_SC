@@ -17,6 +17,7 @@ import co.edu.unicauca.asae.taller_segundo_corte.application.input.GestionarEspa
 import co.edu.unicauca.asae.taller_segundo_corte.domain.models.EspacioFisico;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTORequest.CreateDTORequest.EspacioFisicoDTORequest;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.CreateDTOResponse.EspacioFisicoCreadoDTOResponse;
+import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.GetDTOResponse.ListarEspaciosFisicosDTOResponse;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.mappers.EspacioFisicoDTOToModelMapper;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
@@ -52,9 +53,9 @@ public class EspacioFisicoRestController {
     }
 
     @GetMapping("/espacios_fisicos")
-    public List<EspacioFisicoCreadoDTOResponse> edGetAllEspaciosFisicos() {
+    public ListarEspaciosFisicosDTOResponse edGetAllEspaciosFisicos() {
         List<EspacioFisico> listEspacioFisicoEncontrada = this.objGestionarEspacioFisicoCUIntPort.listar();
-        return this.objMapper.mappingListEspacioFisicoModelToEspacioFisicoDTOResponse(listEspacioFisicoEncontrada);
+        return this.objMapper.mappingListEspacioFisicoModelToEspacioFisicoDTOResponse(HttpStatus.OK.value(),listEspacioFisicoEncontrada);
     }
     
 }

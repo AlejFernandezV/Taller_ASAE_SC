@@ -38,7 +38,7 @@ public class GestionarEspacioFisicoGatewayImplAdapter implements GestionarEspaci
 
     @Override
     public List<EspacioFisico> listar() {
-        Iterable<EspacioFisicoEntity> lstTuplas = this.espacioFisicoRepository.findAllByOrderByNombreAsc();
+        List<EspacioFisicoEntity> lstTuplas = this.espacioFisicoRepository.findAllByOrderByNombreAsc();
         return this.espacioFisicoMapper.map(lstTuplas, new TypeToken<List<EspacioFisico>>() {}.getType());
     }
     

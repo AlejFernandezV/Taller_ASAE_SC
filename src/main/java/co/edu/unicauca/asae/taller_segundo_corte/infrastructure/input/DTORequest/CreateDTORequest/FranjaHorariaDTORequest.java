@@ -12,23 +12,23 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor 
+@NoArgsConstructor
 public class FranjaHorariaDTORequest {
-    @NotBlank(message="Pendiente")
+    @NotBlank(message="{franja_horaria.dia.blank}")
     @Size(max=20, message="Pendiente")
     private String dia;
     
-    @NotNull(message="Pendiente")
+    @NotNull(message="{franja_horaria.hora_inicio.blank}")
     private LocalTime horaInicio;
-    @NotNull(message="Pendiente")
+    @NotNull(message="{franja_horaria.hora_fin.blank}")
     private LocalTime horaFin;
     
-    @NotNull(message="Pendiente")
-    @Positive()
-    private int idCurso;
+    @NotNull(message="{franja_horaria.idDocente.null}")
+    @Positive(message="{franja_horaria.idCurso.positive}")
+    private Integer idCurso;
 
-    @NotNull(message="Pendiente")
-    @Positive()
-    private int idEspacioFisico;
+    @NotNull(message="{franja_horaria.idEspacioFisico.null}")
+    @Positive(message="{franja_horaria.idEspacioFisico.positive}")
+    private Integer idEspacioFisico;
 
 }

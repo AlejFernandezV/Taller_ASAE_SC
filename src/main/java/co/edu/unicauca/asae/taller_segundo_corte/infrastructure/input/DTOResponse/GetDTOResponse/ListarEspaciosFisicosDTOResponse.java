@@ -2,6 +2,7 @@ package co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTORespon
 
 import java.util.List;
 
+import co.edu.unicauca.asae.taller_segundo_corte.domain.models.EspacioFisico;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,5 +12,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ListarEspaciosFisicosDTOResponse {
     private int code;
-    private List<EspacioFisicoDTOResponse> results;
+    private List<EspacioFisico> results;
 }
