@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import jakarta.validation.ConstraintViolationException;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -15,12 +13,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.CodigoError;
+import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.CursoNoExisteException;
+import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.CursoSinDocenteException;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.EntidadNoExisteException;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.EntidadYaExisteException;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.Error;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.ErrorUtils;
+import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.HoraFinMenorQueInicioException;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.ReglaDeNegocioException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolationException;
 
 @ControllerAdvice
 public class RestApiExceptionHandler {
@@ -91,4 +93,44 @@ public class RestApiExceptionHandler {
     public ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(HoraFinMenorQueInicioException.class)
+    public ResponseEntity<Error> handleHoraFinMenorQueInicioException(
+            final HttpServletRequest req, final HoraFinMenorQueInicioException ex) {
+        final Error error = ErrorUtils.crearError(
+                CodigoError.HORA_FIN_MENOR_QUE_INICIO.getCodigo(),
+                CodigoError.HORA_FIN_MENOR_QUE_INICIO.getLlaveMensaje(),
+                HttpStatus.BAD_REQUEST.value())
+                .setUrl(req.getRequestURL().toString())
+                .setMetodo(req.getMethod());
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CursoSinDocenteException.class)
+    public ResponseEntity<Error> handleCursoSinDocenteException(
+            final HttpServletRequest req, final CursoSinDocenteException ex) {
+        final Error error = ErrorUtils.crearError(
+                CodigoError.CURSO_SIN_DOCENTE.getCodigo(),
+                CodigoError.CURSO_SIN_DOCENTE.getLlaveMensaje(),
+                HttpStatus.BAD_REQUEST.value())
+                .setUrl(req.getRequestURL().toString())
+                .setMetodo(req.getMethod());
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CursoNoExisteException.class)
+    public ResponseEntity<Error> handleCursoNoExisteException(
+            final HttpServletRequest req, final CursoNoExisteException ex) {
+        final Error error = ErrorUtils.crearError(
+                CodigoError.CURSO_NO_EXISTE.getCodigo(),
+                CodigoError.CURSO_NO_EXISTE.getLlaveMensaje(),
+                HttpStatus.BAD_REQUEST.value())
+                .setUrl(req.getRequestURL().toString())
+                .setMetodo(req.getMethod());
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+    
 }

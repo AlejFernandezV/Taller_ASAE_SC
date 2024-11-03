@@ -1,5 +1,6 @@
 package co.edu.unicauca.asae.taller_segundo_corte.domain.useCases;
 
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,9 @@ import co.edu.unicauca.asae.taller_segundo_corte.application.output.FormateadorR
 import co.edu.unicauca.asae.taller_segundo_corte.application.output.GestionarFranjaHorariaGatewayIntPort;
 import co.edu.unicauca.asae.taller_segundo_corte.domain.models.Docente;
 import co.edu.unicauca.asae.taller_segundo_corte.domain.models.FranjaHoraria;
+import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.CursoNoExisteException;
+import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.CursoSinDocenteException;
+import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.exceptionControllers.exceptions.HoraFinMenorQueInicioException;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -22,7 +26,9 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
 
     @Override
     public FranjaHoraria crear(FranjaHoraria prmFranjaHoraria) {
-
+        validarHoraFinMayorQueInicio(prmFranjaHoraria);
+        validarCursoTieneDocentes(prmFranjaHoraria);
+        validarCursoExiste(prmFranjaHoraria);
         if(!this.objFranjaHorariaGateway.isEspacioFisicoDisponibleParaFH(
                 prmFranjaHoraria.getDia(), 
                 prmFranjaHoraria.getHoraInicio(), 
@@ -57,6 +63,28 @@ public class GestionarFranjaHorariaCUAdapter implements GestionarFranjaHorariaCU
     public List<FranjaHoraria> listarPorDocente(int prmIdDocente) {
         List<FranjaHoraria> results = this.objFranjaHorariaGateway.listarPorDocente(prmIdDocente); 
         return results.isEmpty() ? this.objFormateadorResultados.preparaRespuestaFallidaListarFranjasHorarias("No hay franjas horarias por listar") : results;
+    }
+
+    private void validarHoraFinMayorQueInicio(FranjaHoraria franjaHoraria) {
+        LocalTime horaInicio = franjaHoraria.getHoraInicio();
+        LocalTime horaFin = franjaHoraria.getHoraFin();
+        
+        if (horaFin.isBefore(horaInicio) || horaFin.equals(horaInicio)) {
+            throw new HoraFinMenorQueInicioException("franja_horaria.hora_fin.menor");
+        }
+    }
+
+    private void validarCursoTieneDocentes(FranjaHoraria franjaHoraria) {
+        if (franjaHoraria.getObjCurso().getLstDocentes() == null || 
+            franjaHoraria.getObjCurso().getLstDocentes().isEmpty()) {
+            throw new CursoSinDocenteException("franja_horaria.curso.sin_docente");
+        }
+    }
+
+    private void validarCursoExiste(FranjaHoraria franjaHoraria) {
+        if (franjaHoraria.getObjCurso() == null) {
+            throw new CursoNoExisteException("franja_horaria.curso.no_existe");
+        }
     }
     
 }
