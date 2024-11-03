@@ -43,13 +43,13 @@ public class GestionarFranjaHorariaGatewayImplAdapter implements GestionarFranja
 
     @Override
     public List<FranjaHoraria> listar() {
-        List<FranjaHorariaEntity> lstTuplas = this.franjaHorariaRepository.findAll();
+        Iterable<FranjaHorariaEntity> lstTuplas = this.franjaHorariaRepository.findAll();
         return this.franjaHorariaMapper.map(lstTuplas, new TypeToken<List<FranjaHoraria>>(){}.getType());
     }
 
     @Override
     public List<FranjaHoraria> listarPorDocente(int prmIdDocente) {
-        List<FranjaHorariaEntity> lstTuplas = this.franjaHorariaRepository.findAllByDocenteId(prmIdDocente);
+        Iterable<FranjaHorariaEntity> lstTuplas = this.franjaHorariaRepository.findAllByDocenteId(prmIdDocente);
         return this.franjaHorariaMapper.map(lstTuplas, new TypeToken<List<FranjaHoraria>>(){}.getType());
     }
 

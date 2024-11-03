@@ -18,5 +18,5 @@ public interface EspacioFisicoDTOToModelMapper {
     
     EspacioFisicoCreadoDTOResponse mappingEspacioFisicoDTOResponse(EspacioFisico espacioFisico);
     
-    public List<EspacioFisicoCreadoDTOResponse> mappingListEspacioFisicoModelToEspacioFisicoDTOResponse(List<EspacioFisico> lstEspaciosFisicos);
+    List<EspacioFisicoCreadoDTOResponse> mappingListEspacioFisicoModelToEspacioFisicoDTOResponse(List<EspacioFisico> lstEspaciosFisicos);
 }

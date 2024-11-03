@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.unicauca.asae.taller_segundo_corte.application.input.GestionarFranjaHorariaCUIntPort;
 import co.edu.unicauca.asae.taller_segundo_corte.domain.models.FranjaHoraria;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTORequest.CreateDTORequest.FranjaHorariaDTORequest;
+import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.CreateDTOResponse.EspacioFisicoCreadoDTOResponse;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.CreateDTOResponse.FranjaHorariaCreadaDTOResponse;
+import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.GetDTOResponse.FranjaHorariaDTOResponse;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.GetDTOResponse.ListarFranjasHorariasDTOResponse;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.mappers.FranjaHorariaDTOToModelMapper;
 import lombok.RequiredArgsConstructor;
@@ -43,12 +45,13 @@ public class FranjaHorariaRestController {
     
     @GetMapping("/franjas_horarias")
     public ListarFranjasHorariasDTOResponse epGetAllFranjasHorarias() {
-        List<FranjaHoraria> lstFranjasHorariasObtenidas = this.objGestionarFranjaHorariaCUIntPort.listar();
-        return this.objMapper.mappingFranjasHorariasDTOResponse(HttpStatus.OK.value(), this.objMapper.mappingListFranjaHorariaModelToListFranjaHorariaDTOResponse(lstFranjasHorariasObtenidas));
+        List<FranjaHoraria> lstFranjasHorarias = objGestionarFranjaHorariaCUIntPort.listar();
+        List<FranjaHorariaDTOResponse> lstFranjasHorariasDTO = objMapper.mappingListFranjaHorariaModelToListFranjaHorariaDTOResponse(lstFranjasHorarias);
+        return objMapper.mappingFranjasHorariasDTOResponse(HttpStatus.OK.value(), lstFranjasHorariasDTO);
     }
     
     @GetMapping("/franjas_horarias/{idDocente}")
-    public ListarFranjasHorariasDTOResponse epGetFranjasHorariasPorDocente(@PathVariable @Min(1) int idDocente) {
+    public List<EspacioFisicoCreadoDTOResponse> epGetFranjasHorariasPorDocente(@PathVariable @Min(1) int idDocente) {
         List<FranjaHoraria> lstFranjasHorariasObtenidas = this.objGestionarFranjaHorariaCUIntPort.listarPorDocente(idDocente);
         return this.objMapper.mappingFranjasHorariasDTOResponse(HttpStatus.OK.value(), this.objMapper.mappingListFranjaHorariaModelToListFranjaHorariaDTOResponse(lstFranjasHorariasObtenidas));
     }

@@ -9,28 +9,27 @@ import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Data
-@Getter
-@Setter
 @AllArgsConstructor
+@NoArgsConstructor 
 public class FranjaHorariaDTORequest {
     @NotBlank(message="Pendiente")
     @Size(max=20, message="Pendiente")
     private String dia;
     
-    @NotBlank(message="Pendiente")
+    @NotNull(message="Pendiente")
     private LocalTime horaInicio;
-    @NotBlank(message="Pendiente")
+    @NotNull(message="Pendiente")
     private LocalTime horaFin;
     
     @NotNull(message="Pendiente")
     @Positive()
-    private int idEspacioFisico;
+    private int idCurso;
 
     @NotNull(message="Pendiente")
     @Positive()
-    private int idCurso;
+    private int idEspacioFisico;
+
 }
