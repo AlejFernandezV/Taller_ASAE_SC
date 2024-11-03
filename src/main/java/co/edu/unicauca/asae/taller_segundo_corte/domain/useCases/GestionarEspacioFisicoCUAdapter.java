@@ -9,10 +9,8 @@ import co.edu.unicauca.asae.taller_segundo_corte.application.output.FormateadorR
 import co.edu.unicauca.asae.taller_segundo_corte.application.output.GestionarEspacioFisicoGatewayIntPort;
 import co.edu.unicauca.asae.taller_segundo_corte.domain.models.EspacioFisico;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class GestionarEspacioFisicoCUAdapter implements GestionarEspacioFisicoCUIntPort{
 
     @Autowired
@@ -21,6 +19,38 @@ public class GestionarEspacioFisicoCUAdapter implements GestionarEspacioFisicoCU
     @Autowired
     private FormateadorResultadosEspacioFisicoIntPort objFormatter;
     
+    @Override
+    public EspacioFisico crear(EspacioFisico prmEspacioFisico) {
+        List<EspacioFisico> espaciosFisicos = this.objEspacioFisicoGateway.listar();
+        boolean existeNombre = espaciosFisicos.stream()
+                .anyMatch(ef -> ef.getNombre().equalsIgnoreCase(prmEspacioFisico.getNombre()));
+        
+        if (existeNombre) {
+            return objFormatter.preparaRespuestaFallidaCrearEspacioFisico(
+                "Ya existe un espacio físico con el nombre: " + prmEspacioFisico.getNombre());
+        }
+        
+        return this.objEspacioFisicoGateway.guardar(prmEspacioFisico);
+    }
+    
+    @Override
+    public EspacioFisico eliminar(int id) {
+        EspacioFisico objEspacioFisico = this.objEspacioFisicoGateway.buscarPorId(id);
+        if (objEspacioFisico == null) {
+            return this.objFormatter.preparaRespuestaFallidaEliminarEspacioFisico("El espacio Fisico no existe");
+        }
+        return this.objEspacioFisicoGateway.eliminar(objEspacioFisico);
+    }
+
+    @Override
+    public EspacioFisico buscarPorId(int id) {
+        EspacioFisico objEspacioFisico = this.objEspacioFisicoGateway.buscarPorId(id);
+        if (objEspacioFisico == null) {
+            return this.objFormatter.preparaRespuestaFallidaMostrarEspacioFisico("No existe un espacio físico con el ID: " + id);
+        }
+        return objEspacioFisico;
+    }
+
     @Override
     public List<EspacioFisico> listar() {
         List<EspacioFisico> lstEspaciosFisicos = this.objEspacioFisicoGateway.listar(); 

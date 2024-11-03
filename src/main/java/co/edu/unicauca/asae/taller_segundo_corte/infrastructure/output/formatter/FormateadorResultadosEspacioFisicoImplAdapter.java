@@ -17,8 +17,19 @@ public class FormateadorResultadosEspacioFisicoImplAdapter implements Formateado
         throw new EntidadYaExisteException(error);
     }
 
+     @Override
+    public EspacioFisico preparaRespuestaFallidaEliminarEspacioFisico(String error) {
+        throw new EntidadNoExisteException(error);
+    }
+
+ 
     @Override
     public List<EspacioFisico> preparaRespuestaFallidaListarEspaciosFisicos(String error) {
+        throw new EntidadNoExisteException(error);
+    }
+
+    @Override
+    public EspacioFisico preparaRespuestaFallidaMostrarEspacioFisico(String error) {
         throw new EntidadNoExisteException(error);
     }
 

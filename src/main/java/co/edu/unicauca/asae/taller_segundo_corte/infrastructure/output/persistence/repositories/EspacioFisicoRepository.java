@@ -9,4 +9,5 @@ import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.output.persisten
 
 public interface EspacioFisicoRepository extends JpaRepository<EspacioFisicoEntity, Integer> {
     List<EspacioFisico> findByNombreStartingWithIgnoreCaseAndCapacidadGreaterThanEqualOrderByNombreAsc(String nombre, String capacidad);
+    boolean existsByNombre(String nombre);
 }

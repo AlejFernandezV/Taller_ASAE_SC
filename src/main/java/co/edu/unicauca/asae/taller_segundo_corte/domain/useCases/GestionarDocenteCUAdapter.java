@@ -9,10 +9,8 @@ import co.edu.unicauca.asae.taller_segundo_corte.application.output.FormateadorR
 import co.edu.unicauca.asae.taller_segundo_corte.application.output.GestionarDocenteGatewayIntPort;
 import co.edu.unicauca.asae.taller_segundo_corte.domain.models.Docente;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class GestionarDocenteCUAdapter implements GestionarDocenteCUIntPort{
 
     @Autowired
@@ -24,7 +22,7 @@ public class GestionarDocenteCUAdapter implements GestionarDocenteCUIntPort{
     @Override
     public Docente crear(Docente prmDocente) {
         if(this.objGestionarDocenteGateway.existeDocentePorCorreo(prmDocente.getCorreo())){
-            return this.objFormateadorResultados.preparaRespuestaFallidaCrearDocente("El docente con esa información ya esta creado");
+            return this.objFormateadorResultados.preparaRespuestaFallidaCrearDocente("El docente con el correro "+prmDocente.getCorreo()+ "ya esta creado");
         }
         return this.objGestionarDocenteGateway.guardar(prmDocente);
     }    
@@ -42,7 +40,7 @@ public class GestionarDocenteCUAdapter implements GestionarDocenteCUIntPort{
     public Docente buscarPorId(int id) {
         Docente objDocente = this.objGestionarDocenteGateway.buscarPorId(id);
         if(objDocente == null) {
-            return this.objFormateadorResultados.preparaRespuestaFallidaBuscarDocente("El docente no existe");
+            return this.objFormateadorResultados.preparaRespuestaFallidaMostrarDocente("El docente no existe");
         }
         return objDocente;
     }

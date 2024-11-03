@@ -19,10 +19,10 @@ import lombok.AllArgsConstructor;
 public class GestionarFranjaHorariaGatewayImplAdapter implements GestionarFranjaHorariaGatewayIntPort{
 
     @Autowired
-    private final FranjaHorariaRepository franjaHorariaRepository;
+    private FranjaHorariaRepository franjaHorariaRepository;
     
     @Autowired
-    private final ModelMapper franjaHorariaMapper;
+    private ModelMapper franjaHorariaMapper;
 
     @Override
     public boolean isDocenteDisponibleParaFH(String dia, LocalTime horaInicio, LocalTime horaFin, int idDocente) {
@@ -52,6 +52,5 @@ public class GestionarFranjaHorariaGatewayImplAdapter implements GestionarFranja
         List<FranjaHorariaEntity> lstTuplas = this.franjaHorariaRepository.findAllByDocenteId(prmIdDocente);
         return this.franjaHorariaMapper.map(lstTuplas, new TypeToken<List<FranjaHoraria>>(){}.getType());
     }
-    
-    
+
 }

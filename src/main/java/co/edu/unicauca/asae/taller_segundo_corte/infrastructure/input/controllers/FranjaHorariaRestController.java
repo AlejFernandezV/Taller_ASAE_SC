@@ -48,7 +48,7 @@ public class FranjaHorariaRestController {
     }
     
     @GetMapping("/franjas_horarias/{idDocente}")
-    public ListarFranjasHorariasDTOResponse epGetAllFranjasHorariasPorDocente(@PathVariable @Min(1) int idDocente) {
+    public ListarFranjasHorariasDTOResponse epGetFranjasHorariasPorDocente(@PathVariable @Min(1) int idDocente) {
         List<FranjaHoraria> lstFranjasHorariasObtenidas = this.objGestionarFranjaHorariaCUIntPort.listarPorDocente(idDocente);
         return this.objMapper.mappingFranjasHorariasDTOResponse(HttpStatus.OK.value(), this.objMapper.mappingListFranjaHorariaModelToListFranjaHorariaDTOResponse(lstFranjasHorariasObtenidas));
     }

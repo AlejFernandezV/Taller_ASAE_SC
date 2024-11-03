@@ -9,8 +9,12 @@ import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class FranjaHorariaDTORequest {
     @NotBlank(message="Pendiente")

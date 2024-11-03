@@ -1,15 +1,22 @@
 package co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.mappers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.mapstruct.Mapper;
 
 import co.edu.unicauca.asae.taller_segundo_corte.domain.models.EspacioFisico;
-import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.GetDTOResponse.EspacioFisicoDTOResponse;
-import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.GetDTOResponse.ListarEspaciosFisicosDTOResponse;
+import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTORequest.CreateDTORequest.EspacioFisicoDTORequest;
+import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.CreateDTOResponse.EspacioFisicoCreadoDTOResponse;
 
 @Mapper(componentModel="spring")
 public interface EspacioFisicoDTOToModelMapper {
-    ListarEspaciosFisicosDTOResponse mappingEspaciosFisicosResponse(int code, List<EspacioFisicoDTOResponse> results);
-    List<EspacioFisicoDTOResponse> mappingListEspacioFisicoModelToEspacioFisicoDTOResponse(List<EspacioFisico> lstEspaciosFisicos); 
+    
+    EspacioFisico mappingEspacioFisicoDTORequestToEspacioFisicoModel(EspacioFisicoDTORequest espacioFisicoRequest);
+    
+    EspacioFisicoCreadoDTOResponse mappingEspacioFisicoDTOResponse(int code, EspacioFisico espacioFisico, Date timestamp);
+    
+    EspacioFisicoCreadoDTOResponse mappingEspacioFisicoDTOResponse(EspacioFisico espacioFisico);
+    
+    public List<EspacioFisicoCreadoDTOResponse> mappingListEspacioFisicoModelToEspacioFisicoDTOResponse(List<EspacioFisico> lstEspaciosFisicos);
 }

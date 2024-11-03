@@ -48,14 +48,14 @@ public class DocenteRestController {
     }
 
      @GetMapping("/docentes/{id}")
-    public DocenteCreadoDTOResponse buscarPorId(@PathVariable @Min(1) int id) {
+    public DocenteCreadoDTOResponse epGetDocentePorID(@PathVariable @Min(1) int id) {
         Docente objDocente = this.objGestionardocentesCUInt.buscarPorId(id);
         return this.objMapper.mappingDocenteDTOResponse(objDocente);
     }
 
     @GetMapping("/docentes")
-    public DocenteCreadoDTOResponse listar() {
+    public List<DocenteCreadoDTOResponse> epGetAllDocentes() {
         List<Docente> lstDocentes = this.objGestionardocentesCUInt.listar();
-        return this.objMapper.mappingDocenteDTOResponse(HttpStatus.OK.value(), lstDocentes);
+        return this.objMapper.mappingListDocenteModelToDocenteCreadoDTOResponse(lstDocentes);
     }
 }
