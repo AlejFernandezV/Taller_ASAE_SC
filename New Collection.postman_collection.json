@@ -1,0 +1,148 @@
+{
+	"info": {
+		"_postman_id": "b0d8dce9-8e7a-4f01-942c-76503a664e7b",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "27613198"
+	},
+	"item": [
+		{
+			"name": "Docente crear",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Juan\",\r\n    \"apellido\": \"Perez\", \r\n    \"correo\": \"juan@email.com\",\r\n    \"oficina\": {\r\n        \"nombre\": \"Oficina 101\",\r\n        \"ubicacion\": \"Edificio Principal\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:9090/api/docentes"
+			},
+			"response": []
+		},
+		{
+			"name": "Docente listar por id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:9090/api/docentes/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Docente listar todos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:9090/api/docentes"
+			},
+			"response": []
+		},
+		{
+			"name": "Docente eliminar",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:9090/api/docentes/1"
+			},
+			"response": []
+		},
+		{
+			"name": "EspacioFisico Crear",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Sala 200\",\r\n  \"capacidad\": \"10 personas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:9090/api/espacios_fisicos"
+			},
+			"response": []
+		},
+		{
+			"name": "Espaciofisico Listar por id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:9090/api/espacios_fisicos/1"
+			},
+			"response": []
+		},
+		{
+			"name": "EspacioFisico listar todos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:9090/api/espacios_fisicos"
+			},
+			"response": []
+		},
+		{
+			"name": "EspacioFisico Eliminar",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:9090/api/espacios_fisicos/1"
+			},
+			"response": []
+		},
+		{
+			"name": "FranjaHoraria Crear",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"dia\": \"Lunes\",\r\n  \"horaInicio\": \"08:00:00\",\r\n  \"horaFin\": \"10:00:00\",\r\n  \"idEspacioFisico\": 1,\r\n  \"idCurso\": 1,\r\n  \"idDocente\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:9090/api/franjas_horarias"
+			},
+			"response": []
+		},
+		{
+			"name": "FranjaHoraria listar por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:9090/api/franjas_horarias/1"
+			},
+			"response": []
+		},
+		{
+			"name": "FranjaHoraria listar todos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:9090/api/franjas_horarias"
+			},
+			"response": []
+		}
+	]
+}

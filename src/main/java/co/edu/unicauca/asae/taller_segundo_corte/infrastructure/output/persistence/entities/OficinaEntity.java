@@ -22,8 +22,8 @@ public class OficinaEntity {
     private int idOficina;
 
     @Column(unique = true, length = 20)
-    private String nombreOficina;
+    private String nombre;
     
     @Column(length = 20)
-    private String ubicacionOficina;
+    private String ubicacion;
 }

@@ -34,7 +34,7 @@ public class FranjaHorariaEntity {
     
     //Relaciones
     @ManyToOne(
-        fetch= FetchType.EAGER
+        fetch= FetchType.LAZY
     )
     @JoinColumn(
         name = "espacio_fisico_id",
@@ -43,6 +43,7 @@ public class FranjaHorariaEntity {
     private EspacioFisicoEntity objEspacioFisico;
 
     @ManyToOne(
+        fetch=FetchType.LAZY,
         cascade={CascadeType.REMOVE}
     )
     @JoinColumn(

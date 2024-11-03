@@ -3,8 +3,6 @@ package co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.controlle
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.constraints.Min;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +19,7 @@ import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTORespons
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.GetDTOResponse.FranjaHorariaDTOResponse;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.GetDTOResponse.ListarFranjasHorariasDTOResponse;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.mappers.FranjaHorariaDTOToModelMapper;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 
 

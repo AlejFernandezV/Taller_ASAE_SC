@@ -3,10 +3,9 @@ package co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.controlle
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.constraints.Min;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,12 +19,15 @@ import co.edu.unicauca.asae.taller_segundo_corte.domain.models.Docente;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTORequest.CreateDTORequest.DocenteDTORequest;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.CreateDTOResponse.DocenteCreadoDTOResponse;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.mappers.DocenteDTOToModelMapper;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 
 
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@Validated
 public class DocenteRestController {
     
     @Autowired
@@ -35,7 +37,7 @@ public class DocenteRestController {
     private DocenteDTOToModelMapper objMapper;
 
     @PostMapping("/docentes")
-    public DocenteCreadoDTOResponse epPostDocente(@RequestBody DocenteDTORequest docenteData) {
+    public DocenteCreadoDTOResponse epPostDocente(@Valid @RequestBody DocenteDTORequest docenteData) {
         Docente objDocenteCrear = this.objMapper.mappingDocenteDTORequestToDocenteModel(docenteData);
         Docente objDocenteCreado = this.objGestionardocentesCUInt.crear(objDocenteCrear);
         return this.objMapper.mappingDocenteDTOResponse(HttpStatus.CREATED.value(), objDocenteCreado, new Date());

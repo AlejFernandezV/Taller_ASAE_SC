@@ -3,8 +3,6 @@ package co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.controlle
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.constraints.Min;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +18,7 @@ import co.edu.unicauca.asae.taller_segundo_corte.domain.models.EspacioFisico;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTORequest.CreateDTORequest.EspacioFisicoDTORequest;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.DTOResponse.CreateDTOResponse.EspacioFisicoCreadoDTOResponse;
 import co.edu.unicauca.asae.taller_segundo_corte.infrastructure.input.mappers.EspacioFisicoDTOToModelMapper;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 
 
